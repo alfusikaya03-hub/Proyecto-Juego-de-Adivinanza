@@ -1,5 +1,5 @@
-Juego de adivinar el número
-Escuela Politécnica Nacional  
+**Juego de adivinar el número**
+**Escuela Politécnica Nacional** 
 **Integrantes:**
 * Kaya Alfusi
 * Mónica Caiza
