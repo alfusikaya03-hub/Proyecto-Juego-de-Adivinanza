@@ -1,14 +1,24 @@
 #include <iostream>
-using namespace std;
 #include <cstdlib>
 #include <ctime>
 #include <string>
-
+#include <ifstream>
 using namespace std;
 
-// =====================================================
-// DECLARACIÓN DE FUNCIONES
-// =====================================================
+//CONSTANTES GLOBALES
+const int MAX_JUGADORES=2;
+const int MAX_HISTORIAL=1000;
+const string NOMBRE_ARCHIVO= "historial_patidad.txt"
+
+//DECLARACION DE PROTOTIPOS
+void mostrarMenu ();
+void limpiarEntrda ();
+void seleccionarRango ();
+void ejecutarTurno (string nombre, strins numeroSecreto, int &intentosTotales, int hitorial [], int rangoMax);
+
+
+
+//RETOS 
 
 void reto1();
 void reto2();
@@ -19,21 +29,38 @@ void reto3();
 // FUNCIÓN PRINCIPAL
 // =====================================================
 int main() {
-
     int opcion;
+    strand (time (NULL));
 
     cout << "==========================================" << endl;
     cout << "         JUEGOS DE ADIVINANZA" << endl;
     cout << "==========================================" << endl;
 
-    // =====================================================
-    // BUCLE PRINCIPAL DEL MENÚ
-    // Se repite hasta elegir salir.
-    // =====================================================
-
     do {
+        mostrarMenu(); 
+        cout<< "Seleccione una opcion"<< endl;
 
-        cout << "\n==========================================" << endl;
+        //Evita el bloqueo si se ingresa una letra
+        if (!(cin >> opcion)) {
+            limpiarEntrada ();
+            opcion=0;
+        }
+
+        switch (opcion) {
+            case 1: reto1 (); break;
+            case 2: reto2 (); break;
+            case 3: reto3 (); break;
+            case 4: mostrarHistorialCompletoTXT (); break;
+            case 5: cout << "Gracias por jugar"<< endl; break;
+            default: cout << "Oopcion no válida"<< ednl; 
+        }
+           
+    } while (opcion != 5);
+
+    return 0;
+}
+
+ cout << "\n==========================================" << endl;
         cout << "             MENU PRINCIPAL" << endl;
         cout << "==========================================" << endl;
 
@@ -41,43 +68,6 @@ int main() {
         cout << "2. Reto 2 - Niveles y Vidas" << endl;
         cout << "3. Reto 3 - El Adivino Digital" << endl;
         cout << "4. Salir" << endl;
-
-        cout << "\nSeleccione una opcion: ";
-        cin >> opcion;
-
-        // =====================================================
-        // Switch:
-        // Ejecuta el reto seleccionado.
-        // =====================================================
-
-        switch (opcion) {
-
-            case 1:
-                reto1();
-                break;
-
-            case 2:
-                reto2();
-                break;
-
-            case 3:
-                reto3();
-                break;
-
-            case 4:
-                cout << "\nGracias por jugar." << endl;
-                break;
-
-            default:
-                cout << "\nOpcion invalida." << endl;
-        }
-
-    } while (opcion != 4);
-
-    return 0;
-}
-
-
 
 // =====================================================
 // RETO 1: MODO 1 VS 1
