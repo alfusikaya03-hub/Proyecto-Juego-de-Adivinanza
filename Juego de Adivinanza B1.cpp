@@ -106,9 +106,31 @@ void ejecutarTurno (string nombre, int numeroSecreto, int &intentosTotales, int 
         cout << "Ingresa un numero" << endl;
         if (!(cin>> adivinar)) {
             limpiarEntrada ();
-            adivinar=0;
+            cout << "Ingresa un número válido"<< endl;
+            continue;
         }
-    }
+        if (intentosTotales < MAX_HISTORIAL) {
+                historial[intentosTotales] = adivinar;
+        } 
+        intentosTotales++;
+
+        if (adivinar > numeroSecreto) {
+            cout << "Más bajo" << endl;  
+        }
+        else if (adivinar < numeroSecreto ) {
+            cout<< "Más alto" << endl;
+        }
+        else {
+            cout << "Muy bien hecho" << nombre << "Adivinaste el número"<< endl;
+            cout << "Intentos realizados: " << intentosTotales << endl;
+        }
+    } while (adivinar != numeroSecreto);
+
+    //Muestra le historial completo
+    mostrarHistorial(historial, intentosTotales);
+    
+    //Guarda los datos en el archivo .txt
+    guardarHistorialEnTXT (nombre, rangoMax, numeroSecreto, historial, intentosTotales);
 }
 
 void reto1() {
