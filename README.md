@@ -1,6 +1,6 @@
-**Juego de adivinar el número**
-**Escuela Politécnica Nacional** 
-**Integrantes:**
+## **Juego de adivinar el número**
+## **Escuela Politécnica Nacional** 
+## **Integrantes:**
 * Kaya Alfusi
 * Mónica Caiza
 * Tifanny Pillajo
