@@ -10,7 +10,7 @@ const int MAX_JUGADORES=2;
 const int MAX_HISTORIAL=1000;
 const string NOMBRE_ARCHIVO= "historial_patidad.txt"
 
-//DECLARACION DE PROTOTIPOS
+//PROTOTIPOS
 void mostrarMenu ();
 void limpiarEntrda ();
 void seleccionarRango ();
@@ -23,18 +23,11 @@ void reto1();
 void reto2();
 void reto3();
 
-
-// =====================================================
-// FUNCIÓN PRINCIPAL
-// =====================================================
+// FUNCION PRINCIPAL 
 int main() {
     int opcion;
     srand (time (NULL));
-
-    cout << "==========================================" << endl;
-    cout << "         JUEGOS DE ADIVINANZA" << endl;
-    cout << "==========================================" << endl;
-
+    
     do {
         mostrarMenu(); 
         cout<< "Seleccione una opcion"<< endl;
@@ -61,7 +54,7 @@ int main() {
 
 void mostrarMenu () {
    cout << "\n==========================================" << endl;
-   cout << "             MENU PRINCIPAL" << endl;
+   cout << "             MENU PRINCIPAL                 " << endl;
    cout << "==========================================" << endl;
    cout << "1. Reto 1 - Modo 1 vs 1" << endl;
    cout << "2. Reto 2 - Niveles y Vidas" << endl;
@@ -70,18 +63,54 @@ void mostrarMenu () {
    cout << "5. Salir"<< endl;
 }
 
+//Vacía el buffer tras un error de tipeo
 void limpiarEntrada () {
     cin.clear ();
     while (cin.get() != '\n' );
 }
 
+int seleccionarRango () {
+    int nivel;
+    do {
+        cout << "NIVELES:" << endl;
+        cout << "1. Facil (1 al 100)" << endl;
+        cout << "2. Medio (1 al 500)" << endl;
+        cout << "3. Dificil (1 al 1000)" << endl;
+        cout << "\nSelecciona un nivel: ";
+        cin >> nivel;
 
+        if (! (cin >> nivel))  {
+            limpiarEntrda ();
+            nivel=0;
+        }
 
-// =====================================================
-// RETO 1: MODO 1 VS 1
-// Dos jugadores intentan adivinar un número.
-// Gana quien lo haga en menos intentos.
-// =====================================================
+        if (nivel < 1 || nivel > 3) {
+            cout << "\nOpción inválida.\n" << endl;
+        }
+
+    } while (nivel < 1 || nivel > 3);
+
+    if(nivel == 1) return 100;
+    if(nivel == 2) return 500;
+    return 1000;
+}
+
+void ejecutarTurno (string nombre, int numeroSecreto, int &intentosTotales, int historial [], int rangoMax) {
+    int adivinar;
+    intentosTotales=0;
+
+    cout << "Turno de " << nombre<< "Rango del 1 al "<< rangoMax << endl;
+    cout << "---------------------------------------------------------" << endl;
+
+    do {
+        cout << "Ingresa un numero" << endl;
+        if (!(cin>> adivinar)) {
+            limpiarEntrada ();
+            adivinar=0;
+        }
+    }
+}
+
 void reto1() {
     
     int max;
@@ -104,33 +133,7 @@ void reto1() {
     // Genera números aleatorios
     srand(time(NULL));
     
-    // Menú de niveles
-    do {
-
-        cout << "NIVELES:" << endl;
-        cout << "1. Facil (1 al 100)" << endl;
-        cout << "2. Medio (1 al 500)" << endl;
-        cout << "3. Dificil (1 al 1000)" << endl;
-
-        cout << "\nSelecciona un nivel: ";
-        cin >> nivel;
-
-        if (nivel < 1 || nivel > 3) {
-            cout << "\nOpcion invalida.\n" << endl;
-        }
-
-    } while (nivel < 1 || nivel > 3);
-
-    // Configuración del rango
-    if (nivel == 1) {
-        max = 100;
-    }
-    else if (nivel == 2) {
-        max = 500;
-    }
-    else {
-        max = 1000;
-    }
+    
 
     // Número aleatorio 
     num = rand() % max + 1;
