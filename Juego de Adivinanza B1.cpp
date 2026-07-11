@@ -19,7 +19,6 @@ void ejecutarTurno (string nombre, strins numeroSecreto, int &intentosTotales, i
 
 
 //RETOS 
-
 void reto1();
 void reto2();
 void reto3();
@@ -30,7 +29,7 @@ void reto3();
 // =====================================================
 int main() {
     int opcion;
-    strand (time (NULL));
+    srand (time (NULL));
 
     cout << "==========================================" << endl;
     cout << "         JUEGOS DE ADIVINANZA" << endl;
@@ -52,7 +51,7 @@ int main() {
             case 3: reto3 (); break;
             case 4: mostrarHistorialCompletoTXT (); break;
             case 5: cout << "Gracias por jugar"<< endl; break;
-            default: cout << "Oopcion no válida"<< ednl; 
+            default: cout << "Opción no válida. Intente de nuevo"<< ednl; 
         }
            
     } while (opcion != 5);
@@ -60,14 +59,23 @@ int main() {
     return 0;
 }
 
- cout << "\n==========================================" << endl;
-        cout << "             MENU PRINCIPAL" << endl;
-        cout << "==========================================" << endl;
+void mostrarMenu () {
+   cout << "\n==========================================" << endl;
+   cout << "             MENU PRINCIPAL" << endl;
+   cout << "==========================================" << endl;
+   cout << "1. Reto 1 - Modo 1 vs 1" << endl;
+   cout << "2. Reto 2 - Niveles y Vidas" << endl;
+   cout << "3. Reto 3 - El Adivino Digital" << endl;
+   cout << "4. Mostrar historial " << endl;
+   cout << "5. Salir"<< endl;
+}
 
-        cout << "1. Reto 1 - Modo 1 vs 1" << endl;
-        cout << "2. Reto 2 - Niveles y Vidas" << endl;
-        cout << "3. Reto 3 - El Adivino Digital" << endl;
-        cout << "4. Salir" << endl;
+void limpiarEntrada () {
+    cin.clear ();
+    while (cin.get() != '\n' );
+}
+
+
 
 // =====================================================
 // RETO 1: MODO 1 VS 1
