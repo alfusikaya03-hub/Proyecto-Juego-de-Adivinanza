@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 #include <cstdlib>
 #include <ctime>
 #include <string>
@@ -16,7 +17,6 @@ void reto3();
 
 // =====================================================
 // FUNCIÓN PRINCIPAL
-// Contiene el menú principal del programa.
 // =====================================================
 int main() {
 
