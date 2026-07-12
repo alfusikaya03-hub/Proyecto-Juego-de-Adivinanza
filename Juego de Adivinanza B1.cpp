@@ -10,13 +10,13 @@ using namespace std;
 //CONSTANTES GLOBALES
 const int MAX_JUGADORES=2;
 const int MAX_HISTORIAL=1000;
-const string NOMBRE_ARCHIVO= "historial_partidas.txt"
+const string NOMBRE_ARCHIVO= "historial_partidas.txt";
 
 //PROTOTIPOS
 void mostrarMenu ();
-void limpiarEntrda ();
-void seleccionarRango ();
-void ejecutarTurno (string nombre, strins numeroSecreto, int &intentosTotales, int hitorial [], int rangoMax);
+void limpiarEntrada ();
+int seleccionarRango ();
+void ejecutarTurno (string nombre, int numeroSecreto, int &intentosTotales, int hitorial [], int rangoMax);
 void mostrarHistorial(int historial[], int totalIntentos);
 void guardarHistorialEnTXT(string nombre, int rangoMax, int numeroSecreto, int historial[], int totalIntentos);
 void mostrarHistorialCompletoTXT(); 
@@ -85,7 +85,7 @@ int seleccionarRango () {
         cin >> nivel;
 
         if (! (cin >> nivel))  {
-            limpiarEntrda ();
+            limpiarEntrada ();
             nivel=0;
         }
 
@@ -142,7 +142,7 @@ void mostrarHistorial (int historial[], int totalIntentos) {
     cout << "Tu secuencia de intentos fue: [";
     for (int i=0; i < totalIntentos; i++) {
         cout<< historial [i];
-        if (i < intentosTotales -1) {
+        if (i < totalIntentos -1) {
             cout << ", ";
         }
     }
@@ -159,11 +159,11 @@ void guardarHistorialEnTXT (string nombre, int rangoMax, int numeroSecreto, int 
     }
 
     archivo<< "Jugador: " << nombre << endl;
-    archivo << "Rango: 1 a " << rangoMax <, endl;
+    archivo << "Rango: 1 a " << rangoMax << endl;
     archivo << "Numero secreto: "<< numeroSecreto<< endl;
     archivo << "Intentos totales: " << totalIntentos << endl;
     archivo << "Secuencia: [ ";
-    for (int i=0; i < totalIntentos: i++ ) {
+    for (int i=0; i < totalIntentos; i++ ) {
         archivo << historial [i];
         if (i < totalIntentos -1) archivo << ", ";
     }
@@ -244,7 +244,9 @@ void reto2() {
     int nivel;
     int vidas;
     int adivinar;
-    int limite = 100;
+    int limite;
+    int historialReto2[MAX_HISTORIAL];
+    int conteoIntentos = 0 ;
 
     srand(time(NULL));
 
@@ -261,44 +263,25 @@ void reto2() {
     cout << "5. Muy Dificil (1-100)" << endl;
 
     cout << "\nSeleccione un nivel: ";
-    cin >> nivel;
+    if (!(cin>>nivel)){
+        limpiarEntrada();
+        nivel=0;
+    }
     if (nivel<1 || nivel>5){
         cout<<"Error. Opción no válida. Seleccione opciones del 1 al 5"<<endl;
         }
     } while (nivel<1 || nivel>5);
 
-    // Configuración de dificultad
-    if (nivel == 1) {
-        limite = 10;
-        vidas = 3;
-    }
-    else if (nivel == 2) {
-        limite = 25;
-        vidas = 5;
-    }
-    else if (nivel == 3) {
-        limite = 50;
-        vidas = 7;
-    }
-    else if (nivel == 4) {
-        limite = 75;
-        vidas = 10;
-    }
-    else {
-        limite = 100;
-        vidas = 12;
-    }
+    int limites[]={10,25,50,75,100};
+    int vidasPorNivel []={3,5,7,10,12};
 
-    // Número aleatorio
-    num = rand() % limite + 1;
+    limite=limites[nivel - 1];
+    vidas = vidasPorNivel[nivel - 1];
+    int vidasIniciales = vidas;
 
-    // =====================================================
-    // Bucle while:
-    // El juego continúa mientras existan vidas.
-    // =====================================================
+    num= rand () % limite + 1;
 
     while (vidas > 0) {
-
         cout << "\nVIDAS: ";
 
         // =====================================================
@@ -309,8 +292,7 @@ void reto2() {
         for (int i = 0; i < vidas; i++) {
             cout << "* ";
         }
-
-        cout << "\n\nIntroduce un numero: ";
+         cout << "\n\nIntroduce un numero: ";
         cin >> adivinar;
 
         // Verifica victoria
@@ -318,7 +300,6 @@ void reto2() {
             cout << "\n¡GANASTE!" << endl;
             break;
         }
-
         int diferencia = adivinar - num;
 
         // Pistas
@@ -351,8 +332,6 @@ void reto2() {
         }
     }
 }
-
-
 
 // =====================================================
 // RETO 3: EL ADIVINO DIGITAL
@@ -409,7 +388,7 @@ void reto3() {
             superior = intento - 1;
         }else if (respuesta == 3) {
             adivinado = true;
-            guardarHistorialENTXT("Computadora (Adivino)", maxRango, intento, historialPC, conteoPC);
+            guardarHistorialEnTXT("Computadora (Adivino)", maxRango, intento, historialPC, conteoPC);
         }else {
             cout << "\nOpcion no válida." << endl;
         }
