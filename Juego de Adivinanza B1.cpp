@@ -436,71 +436,48 @@ void reto3() {
     // Validación de dificultad
     // =====================================================
 
-    do {
+    int maxRango = seleccionarRango ();
+    superior = maxRango;
 
-        cout << "Selecciona la dificultad:" << endl;
-        cout << "1. Facil (1 al 100)" << endl;
-        cout << "2. Medio (1 al 500)" << endl;
-        cout << "3. Dificil (1 al 1000)" << endl;
+    cout << "\nPiensa en un numero entre 1y " << superior <<endl;"
 
-        cout << "\nTu eleccion: ";
-        cin >> nivel;
-
-        if (nivel < 1 || nivel > 3) {
-            cout << "\nOpcion invalida.\n" << endl;
-        }
-
-    } while (nivel < 1 || nivel > 3);
-
-    // Configuración del rango
-    if (nivel == 1) {
-        superior = 100;
-    }
-    else if (nivel == 2) {
-        superior = 500;
-    }
-    else {
-        superior = 1000;
-    }
-
-    cout << "\nPiensa en un numero entre 1 y " << superior << endl;
-
-    // =====================================================
-    // Bucle principal de búsqueda
-    // =====================================================
+    //Control estricto de limites para evitar bucles infinitos por pistas falsas
 
     while (!adivinado && inferior <= superior) {
-
-        // Búsqueda binaria
         intento = inferior + (superior - inferior) / 2;
 
+        if (conteoPC  < MAX_HISTORIAL){
+            historialPC[conteoPC] = intento;
+        }
+        conteoPC++;
+        
         cout << "\n¿Tu numero es " << intento << "?" << endl;
-
         cout << "1. Mi numero es mayor" << endl;
         cout << "2. Mi numero es menor" << endl;
         cout << "3. ¡Correcto!" << endl;
 
-        cout << "\nRespuesta: ";
-        cin >> respuesta;
+        cout << "\nRespuesta: ";"
+        if (!(cin >> respuesta)){
+            limpiarEntrada();
+            respuesta = 0;
+        }
 
-        // Ajuste del rango
-        if (respuesta == 1) {
+        if (respuesta == 1){
             inferior = intento + 1;
-        }
-        else if (respuesta == 2) {
+        }else if (respuesta == 2) {
             superior = intento - 1;
-        }
-        else if (respuesta == 3) {
+        }else if (respuesta == 3) {
             adivinado = true;
-            cout << "\n¡La computadora adivino tu numero!" << endl;
+            guardarHistorialENTXT("Computadora (Adivino)", maxRango, intento, historialPC, conteoPC);
+        }else {
+            cout << "\nOpcion no válida." << endl;
         }
-        else {
-            cout << "\nOpcion invalida." << endl;
-        }
-    }
 
+
+    }
     // Verifica errores
     if (!adivinado) {
-        cout << "\nHubo un error en las pistas." << endl;
+        cout << "\nHubo una incongruencia en las pistas." << endl;
+        guardarHistorialEnTXT("Computadora (Fallo por Incongruencia)", maxRango, -1, historialPC, conteoPC);
     }
 }
