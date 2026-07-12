@@ -1,3 +1,5 @@
+//Integrantes: Kaya Alfusi, Mónica Caiza, Tifanny Pillajo
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -28,13 +30,14 @@ void reto3();
 // FUNCION PRINCIPAL 
 int main() {
     int opcion;
+    //Inicializa la semilla del generador de números aleatorios usando el tiempo actual
     srand (time (NULL));
     
     do {
         mostrarMenu(); 
         cout<< "Seleccione una opcion"<< endl;
 
-        //Evita el bloqueo si se ingresa una letra
+        // Evita bloqueo si el usuario ingresa una letra en el menú
         if (!(cin >> opcion)) {
             limpiarEntrada ();
             opcion=0;
@@ -65,7 +68,7 @@ void mostrarMenu () {
    cout << "5. Salir"<< endl;
 }
 
-//Vacía el buffer tras un error de tipeo
+// Vacía el buffer de entrada tras un error de tipeo
 void limpiarEntrada () {
     cin.clear ();
     while (cin.get() != '\n' );
@@ -108,7 +111,7 @@ void ejecutarTurno (string nombre, int numeroSecreto, int &intentosTotales, int 
         cout << "Ingresa un numero" << endl;
         if (!(cin>> adivinar)) {
             limpiarEntrada ();
-            cout << "Ingresa un número válido"<< endl;
+            cout << "Por favor, ingresa un número válido"<< endl;
             continue;
         }
         if (intentosTotales < MAX_HISTORIAL) {
@@ -128,10 +131,10 @@ void ejecutarTurno (string nombre, int numeroSecreto, int &intentosTotales, int 
         }
     } while (adivinar != numeroSecreto);
 
-    //Muestra le historial completo
+     // Muestra el historial en la consola actual
     mostrarHistorial(historial, intentosTotales);
     
-    //Guarda los datos en el archivo .txt
+    //Guarda automáticamente los datos y la secuencia en el archivo físico .txt
     guardarHistorialEnTXT (nombre, rangoMax, numeroSecreto, historial, intentosTotales);
 }
 
@@ -146,6 +149,7 @@ void mostrarHistorial (int historial[], int totalIntentos) {
     cout << " ]"<< endl;
 }
 
+// Escribe los resultados al final del archivo sin borrar los anteriores
 void guardarHistorialEnTXT (string nombre, int rangoMax, int numeroSecreto, int historial [], int totalIntentos) {
     ofstream archivo (NOMBRE_ARCHIVO, ios::app);
 
@@ -168,6 +172,7 @@ void guardarHistorialEnTXT (string nombre, int rangoMax, int numeroSecreto, int 
 
     archivo.close ();
 }
+
 // Lee e imprime el contenido completo del archivo TXT en la consola
 void mostrarHistorialCompletoTXT() {
     ifstream archivo(NOMBRE_ARCHIVO);
@@ -231,7 +236,7 @@ void reto1() {
 
 // =====================================================
 // RETO 2: NIVELES Y VIDAS
-// El jugador tiene vidas limitadas según la dificultad.
+// Adivinar el número con un control de vidas y dificultad
 // =====================================================
 void reto2() {
 
@@ -351,7 +356,7 @@ void reto2() {
 
 // =====================================================
 // RETO 3: EL ADIVINO DIGITAL
-// La computadora intenta adivinar el número.
+// La computadora adivina el numero.
 // =====================================================
 void reto3() {
 
