@@ -2,23 +2,25 @@
 #include <cstdlib>
 #include <ctime>
 #include <string>
-#include <ifstream>
+#include <fstream>
 using namespace std;
 
 //CONSTANTES GLOBALES
 const int MAX_JUGADORES=2;
 const int MAX_HISTORIAL=1000;
-const string NOMBRE_ARCHIVO= "historial_patidad.txt"
+const string NOMBRE_ARCHIVO= "historial_patidas.txt"
 
 //PROTOTIPOS
 void mostrarMenu ();
 void limpiarEntrda ();
 void seleccionarRango ();
 void ejecutarTurno (string nombre, strins numeroSecreto, int &intentosTotales, int hitorial [], int rangoMax);
+void mostrarHistorial(int historial[], int totalIntentos);
+void guardarHistorialEnTXT(string nombre, int rangoMax, int numeroSecreto, int historial[], int totalIntentos);
+void mostrarHistorialCompletoTXT(); 
 
 
-
-//RETOS 
+//RETOS PRINCIPALES
 void reto1();
 void reto2();
 void reto3();
@@ -44,7 +46,7 @@ int main() {
             case 3: reto3 (); break;
             case 4: mostrarHistorialCompletoTXT (); break;
             case 5: cout << "Gracias por jugar"<< endl; break;
-            default: cout << "Opción no válida. Intente de nuevo"<< ednl; 
+            default: cout << "Opción no válida. Intente de nuevo"<< endl; 
         }
            
     } while (opcion != 5);
@@ -166,127 +168,61 @@ void guardarHistorialEnTXT (string nombre, int rangoMax, int numeroSecreto, int 
 
     archivo.close ();
 }
+// Lee e imprime el contenido completo del archivo TXT en la consola
+void mostrarHistorialCompletoTXT() {
+    ifstream archivo(NOMBRE_ARCHIVO);
+    string linea;
 
+    cout << "\n---------------------------------------" << endl;
+    cout << "     HISTORIAL DE PARTIDAS GUARDADAS" << endl;
+    cout << "---------------------------------------" << endl;
 
+    if (!archivo.is_open()) {
+        cout << "No hay un historial registrado aun o el archivo no existe." << endl;
+        return;
+    }
+    while (getline(archivo, linea)) {
+        cout << linea << endl;
+    }
+    archivo.close();
+}
+
+// =====================================================
+// RETO 1: MODO 1 VS 1
+// Competencia entre dos jugadores.
+// =====================================================
 
 void reto1() {
-    
-    int max;
-    int nivel;
-
-    // Variables del jugador 1
-    int num;
-    double adivinar;
-    int intentos = 0;
-
-    // Variables del jugador 2
-    int num2;
-    double adivinar2;
-    int intentos2 = 0;
-
-    // Variables para guardar nombres
-    string nombre1;
-    string nombre2;
-
-    // Genera números aleatorios
-    srand(time(NULL));
-    
-    
-
-    // Número aleatorio 
-    num = rand() % max + 1;
-
-    cout << "\n====================================" << endl;
+    cout << "\n---------------------------------------" << endl;
     cout << "      RETO 1 - MODO 1 VS 1" << endl;
-    cout << "====================================\n" << endl;
+    cout << "---------------------------------------\n" << endl;
 
-    cout << "El jugador que adivine el numero en menos intentos gana.\n" << endl;
+    int maxRango = seleccionarRango();
+    string nombres[MAX_JUGADORES];
+    int intentos[MAX_JUGADORES] = {0};
+    int historialIntenciones[MAX_HISTORIAL]; 
 
-    // Ingreso de nombres
-    cout << "Jugador 1, ingresa tu nombre: ";
-    cin >> nombre1;
+    for (int i = 0; i < MAX_JUGADORES; i++) {
+        cout << "Jugador " << i + 1 << ", ingresa tu nombre: ";
+        cin >> nombres[i];
+    }
 
-    cout << "Jugador 2, ingresa tu nombre: ";
-    cin >> nombre2;
+    for (int i = 0; i < MAX_JUGADORES; i++) {
+        int numeroSecreto = rand() % maxRango + 1;
+        ejecutarTurno(nombres[i], numeroSecreto, intentos[i], historialIntenciones, maxRango);
+    }
 
-    // =====================================================
-    // TURNO DEL JUGADOR 1
-    // El bucle do-while se repite hasta que el
-    // jugador adivine correctamente el número.
-    // =====================================================
-
-    cout << "\nTurno de " << nombre1 << endl;
-
-    do {
-        
-        cout << "Ingresa un numero: ";
-        cin >> adivinar;
-
-        // Aumenta el contador de intentos
-        intentos++;
-
-        // Condicionales para dar pistas
-        if (adivinar > num) {
-            cout << "Mas bajo\n" << endl;
-        }
-        else if (adivinar < num) {
-            cout << "Mas alto\n" << endl;
-        }
-        else {
-            cout << "\n¡ADIVINASTE!" << endl;
-            cout << "Intentos realizados: " << intentos << endl;
-        }
-
-    } while (adivinar != num);
-
-
-    // =====================================================
-    // TURNO DEL JUGADOR 2
-    // =====================================================
-
-    // Nuevo número aleatorio
-    num2 = rand() % max + 1;
-
-    cout << "\nTurno de " << nombre2 << endl;
-
-    do {
-
-        cout << "Ingresa un numero: ";
-        cin >> adivinar2;
-
-        intentos2++;
-
-        if (adivinar2 > num2) {
-            cout << "Mas bajo\n" << endl;
-        }
-        else if (adivinar2 < num2) {
-            cout << "Mas alto\n" << endl;
-        }
-        else {
-            cout << "\n¡ADIVINASTE!" << endl;
-            cout << "Intentos realizados: " << intentos2 << endl;
-        }
-
-    } while (adivinar2 != num2);
-
-
-    // =====================================================
-    // RESULTADOS FINALES
-    // =====================================================
-
-    cout << "\n====================================" << endl;
+    cout << "\n---------------------------------------" << endl;
     cout << "           RESULTADOS" << endl;
-    cout << "====================================\n" << endl;
+    cout << "---------------------------------------\n" << endl;
 
-    if (intentos < intentos2) {
-        cout << "El ganador es " << nombre1 << endl;
-        cout << "Gano por " << intentos2 - intentos << " intento(s)." << endl;
-    }
-    else if (intentos > intentos2) {
-        cout << "El ganador es " << nombre2 << endl;
-        cout << "Gano por " << intentos - intentos2 << " intento(s)." << endl;
-    }
-    else {
+    if (intentos[0] < intentos[1]) {
+        cout << "El ganador es " << nombres[0] << endl;
+        cout << "Gano por " << intentos[1] - intentos[0] << " intento(s)." << endl;
+    } else if (intentos[0] > intentos[1]) {
+        cout << "El ganador es " << nombres[1] << endl;
+        cout << "Gano por " << intentos[0] - intentos[1] << " intento(s)." << endl;
+    } else {
         cout << "¡EMPATE!" << endl;
     }
 }
@@ -420,7 +356,7 @@ void reto2() {
 void reto3() {
 
     int inferior = 1;
-    int superior =100;
+    int superior;
     int intento;
     int respuesta;
     bool adivinado = false;
@@ -439,12 +375,12 @@ void reto3() {
     int maxRango = seleccionarRango ();
     superior = maxRango;
 
-    cout << "\nPiensa en un numero entre 1y " << superior <<endl;"
+    cout << "\nPiensa en un numero entre 1 y " << superior <<endl;
 
     //Control estricto de limites para evitar bucles infinitos por pistas falsas
 
     while (!adivinado && inferior <= superior) {
-        intento = inferior + (superior - inferior) / 2;
+        intento = (inferior + (superior - inferior))/ 2;
 
         if (conteoPC  < MAX_HISTORIAL){
             historialPC[conteoPC] = intento;
@@ -456,7 +392,7 @@ void reto3() {
         cout << "2. Mi numero es menor" << endl;
         cout << "3. ¡Correcto!" << endl;
 
-        cout << "\nRespuesta: ";"
+        cout << "\nRespuesta: ";
         if (!(cin >> respuesta)){
             limpiarEntrada();
             respuesta = 0;
