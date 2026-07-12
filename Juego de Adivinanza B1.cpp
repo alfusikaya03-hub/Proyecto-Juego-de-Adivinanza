@@ -385,7 +385,7 @@ void reto3() {
     //Control estricto de limites para evitar bucles infinitos por pistas falsas
 
     while (!adivinado && inferior <= superior) {
-        intento = (inferior + (superior - inferior))/ 2;
+        intento = inferior + (superior - inferior)/ 2;
 
         if (conteoPC  < MAX_HISTORIAL){
             historialPC[conteoPC] = intento;
