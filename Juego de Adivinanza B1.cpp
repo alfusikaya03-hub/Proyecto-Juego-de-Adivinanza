@@ -420,12 +420,13 @@ void reto2() {
 void reto3() {
 
     int inferior = 1;
-    int superior = 100;
-    int nivel;
+    int superior =100;
     int intento;
     int respuesta;
-
     bool adivinado = false;
+    int historialPC[MAX_HISTORIAL];
+    int conteoPC = 0;
+
 
     cout << "\n====================================" << endl;
     cout << "     RETO 3 - EL ADIVINO DIGITAL" << endl;
