@@ -133,6 +133,42 @@ void ejecutarTurno (string nombre, int numeroSecreto, int &intentosTotales, int 
     guardarHistorialEnTXT (nombre, rangoMax, numeroSecreto, historial, intentosTotales);
 }
 
+void mostrarHistorial (int historial[], int totalIntentos) {
+    cout << "Tu secuencia de intentos fue: [";
+    for (int i=0; i < totalIntentos; i++) {
+        cout<< historial [i];
+        if (i < intentosTotales -1) {
+            cout << ", ";
+        }
+    }
+    cout << " ]"<< endl;
+}
+
+void guardarHistorialEnTXT (string nombre, int rangoMax, int numeroSecreto, int historial [], int totalIntentos) {
+    ofstream archivo (NOMBRE_ARCHIVO, ios::app);
+
+    if (! archivo.is_open () ) {
+        cout << "No se pudo escribir el archivo en el historial" << endl;
+        return;
+    }
+
+    archivo<< "Jugador: " << nombre << endl;
+    archivo << "Rango: 1 a " << rangoMax <, endl;
+    archivo << "Numero secreto: "<< numeroSecreto<< endl;
+    archivo << "Intentos totales: " << totalIntentos << endl;
+    archivo << "Secuencia: [ ";
+    for (int i=0; i < totalIntentos: i++ ) {
+        archivo << historial [i];
+        if (i < totalIntentos -1) archivo << ", ";
+    }
+    archivo << " ]"<< endl;
+    archivo << "------------------------------------------" << endl;
+
+    archivo.close ();
+}
+
+
+
 void reto1() {
     
     int max;
