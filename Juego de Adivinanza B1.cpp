@@ -8,7 +8,7 @@ using namespace std;
 //CONSTANTES GLOBALES
 const int MAX_JUGADORES=2;
 const int MAX_HISTORIAL=1000;
-const string NOMBRE_ARCHIVO= "historial_patidas.txt"
+const string NOMBRE_ARCHIVO= "historial_partidas.txt"
 
 //PROTOTIPOS
 void mostrarMenu ();
