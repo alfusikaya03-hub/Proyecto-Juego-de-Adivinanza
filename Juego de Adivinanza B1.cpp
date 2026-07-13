@@ -82,7 +82,6 @@ int seleccionarRango () {
         cout << "2. Medio (1 al 500)" << endl;
         cout << "3. Dificil (1 al 1000)" << endl;
         cout << "\nSelecciona un nivel: ";
-        cin >> nivel;
 
         if (! (cin >> nivel))  {
             limpiarEntrada ();
@@ -104,7 +103,7 @@ void ejecutarTurno (string nombre, int numeroSecreto, int &intentosTotales, int 
     int adivinar;
     intentosTotales=0;
 
-    cout << "Turno de " << nombre<< "Rango del 1 al "<< rangoMax << endl;
+    cout << "Turno de " << nombre<< "  Rango del 1 al "<< rangoMax << endl;
     cout << "---------------------------------------------------------" << endl;
 
     do {
@@ -247,8 +246,6 @@ void reto2() {
     int limite;
     int historialReto2[MAX_HISTORIAL];
     int conteoIntentos = 0 ;
-
-    srand(time(NULL));
 
     cout << "\n====================================" << endl;
     cout << "   RETO 2 - NIVELES Y VIDAS" << endl;
