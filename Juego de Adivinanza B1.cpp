@@ -16,10 +16,10 @@ const string NOMBRE_ARCHIVO= "historial_partidas.txt";
 void mostrarMenu ();
 void limpiarEntrada ();
 int seleccionarRango ();
-void ejecutarTurno (string nombre, int numeroSecreto, int &intentosTotales, int hitorial [], int rangoMax);
+void ejecutarTurno (string nombre, int numeroSecreto, int &intentosTotales, int historial [], int rangoMax);
 void mostrarHistorial(int historial[], int totalIntentos);
 void guardarHistorialEnTXT(string nombre, int rangoMax, int numeroSecreto, int historial[], int totalIntentos);
-void mostrarHistorialCompletoTXT(); 
+void mostrarHistorialCompletoTXT();
 
 
 //RETOS PRINCIPALES
