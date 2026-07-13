@@ -283,55 +283,50 @@ void reto2() {
 
     while (vidas > 0) {
         cout << "\nVIDAS: ";
-
-        // =====================================================
-        // Bucle for:
-        // Muestra vidas con asteriscos.
-        // =====================================================
-
         for (int i = 0; i < vidas; i++) {
             cout << "* ";
         }
-         cout << "\n\nIntroduce un numero: ";
-        cin >> adivinar;
 
-        // Verifica victoria
+        cout << "\nIntroduce un numero: ";
+        if (!(cin >> adivinar)) {
+            limpiarEntrada();
+            cout << "Ingreso invalido. Pierdes una vida." << endl;
+            vidas--;
+            continue;
+        }
+
+        if (conteoIntentos < MAX_HISTORIAL) {
+            historialReto2[conteoIntentos] = adivinar;
+        }
+        conteoIntentos++;
+
         if (adivinar == num) {
             cout << "\n¡GANASTE!" << endl;
+            mostrarHistorial(historialReto2, conteoIntentos);
+            
+            guardarHistorialEnTXT("Jugador Reto 2", limite, num, historialReto2, conteoIntentos);
             break;
         }
+
         int diferencia = adivinar - num;
-
-        // Pistas
         if (diferencia > 0) {
-
-            if (diferencia > 15) {
-                cout << "Muchisimo mas bajo" << endl;
-            }
-            else {
-                cout << "Mas bajo" << endl;
-            }
-
-        }
-        else {
-
-            if (-diferencia > 15) {
-                cout << "Muchisimo mas alto" << endl;
-            }
-            else {
-                cout << "Mas alto" << endl;
-            }
+            if (diferencia > 15) cout << "Muchisimo mas bajo" << endl;
+            else cout << "Mas bajo" << endl;
+        } else {
+            if (-diferencia > 15) cout << "Muchisimo mas alto" << endl;
+            else cout << "Mas alto" << endl;
         }
 
-        // Reduce vidas
         vidas--;
 
-        // Verifica derrota
         if (vidas == 0) {
             cout << "\nPERDISTE. El numero era: " << num << endl;
+            mostrarHistorial(historialReto2, conteoIntentos);
+            guardarHistorialEnTXT("Jugador Reto 2 (Derrota)", limite, num, historialReto2, conteoIntentos);
         }
     }
 }
+
 
 // =====================================================
 // RETO 3: EL ADIVINO DIGITAL
