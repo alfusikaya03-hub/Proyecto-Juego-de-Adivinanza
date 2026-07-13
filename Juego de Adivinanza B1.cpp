@@ -125,7 +125,7 @@ void ejecutarTurno (string nombre, int numeroSecreto, int &intentosTotales, int 
             cout<< "Más alto" << endl;
         }
         else {
-            cout << "Muy bien hecho" << nombre << "Adivinaste el número"<< endl;
+            cout << "Muy bien hecho" << nombre << "--Adivinaste el número"<< endl;
             cout << "Intentos realizados: " << intentosTotales << endl;
         }
     } while (adivinar != numeroSecreto);
